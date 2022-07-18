@@ -15,7 +15,7 @@ namespace Tictactoe
 
             Console.WriteLine("\'X\' ходит первым\n" +
                               "Введите номер ячейки");
-
+                                                                                //Проверка PullRequest
             //TicRun.Run();
 
             Game();
