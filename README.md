@@ -1,1 +1,2 @@
-# Rainbow
+# LearningCSharp
+# Kirill Selin
