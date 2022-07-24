@@ -7,23 +7,21 @@ namespace StudentApp
     class Student: Person
     {
 
-        public Student(int id, string secondName, string firstName, int age, bool gender, string phoneNumber, string course) : base(id, secondName, firstName, age, gender, phoneNumber)
+        public Student(string secondName, string firstName, int age, Gender gender, string phoneNumber, string group) : base(secondName, firstName, age, gender, phoneNumber)
         {
-            Course = course;
+            Group = group;
         }
 
-        public string Course { get; set; }
+        public string Group { get; set; }
 
         public override void PrintInfo()
         {
 
             Console.WriteLine("\nСтудент");
             base.PrintInfo();
-            Console.WriteLine($"Курс: {Course}");
+            Console.WriteLine($"Группа: {Group}");
 
         }
-
-
 
     }
 }

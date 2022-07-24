@@ -6,7 +6,7 @@ namespace StudentApp
 {
     internal class Teacher: Person
     {
-        public Teacher(int id, string secondName, string firstName, int age, bool gender, string phoneNumber, string subject) : base(id, secondName, firstName, age, gender, phoneNumber)
+        public Teacher(string secondName, string firstName, int age, Gender gender, string phoneNumber, string subject) : base(secondName, firstName, age, gender, phoneNumber)
         {
             Subject = subject;
         }
