@@ -10,7 +10,7 @@ namespace StudentApp
         public string SecondName { get; private set; }
         public int Age { get; set; }
         public string PhoneNumber { get; set; }
-        private Gender gender;
+        public Gender gender { get; private set; }
 
         public Person(string secondName, string firstName, int age, Gender gender, string phoneNumber)
         {
