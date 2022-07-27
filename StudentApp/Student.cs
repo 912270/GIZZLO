@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using GenSpace;
 
 namespace StudentApp
 {
@@ -17,9 +18,9 @@ namespace StudentApp
         public override void PrintInfo()
         {
 
-            Console.WriteLine("\nСтудент");
-            base.PrintInfo();
-            Console.WriteLine($"Группа: {Group}");
+            Console.WriteLine("\nСтудент" +
+                                $"\n{MainInfo()}" +
+                                $"\nГруппа: {Group}");
 
         }
 

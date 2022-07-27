@@ -20,6 +20,8 @@ namespace StudentApp
 
             serv.Show<Teacher>();
 
+            Console.WriteLine("\n\n");
+
         }
     }
 }

@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using GenSpace;
 
 namespace StudentApp
 {
-    internal class Person
+    internal abstract class Person
     {
         public string FirstName { get; private set; }
         public string SecondName { get; private set; }
@@ -21,21 +22,23 @@ namespace StudentApp
             this.PhoneNumber = phoneNumber;
         }
 
-        public virtual void PrintInfo()
+        public string MainInfo()
         {
 
-            Console.WriteLine($"Фамилия: {SecondName}\n" +
-                              $"Имя: {FirstName}\n" +
-                              $"Возраст: {Age}\n" +
-                              $"Пол: {gender.ToString()}\n" +
-                              $"Телефон: {PhoneNumber}");
+            return $"Фамилия: {SecondName}\n" +
+                    $"Имя: {FirstName}\n" +
+                    $"Возраст: {Age}\n" +
+                    $"Пол: {gender.ToString()}\n" +
+                    $"Телефон: {PhoneNumber}";
 
         }
 
-        public enum Gender
+        public abstract string AdditionalInfo();
+
+        public virtual void PrintInfo()
         {
-            Male,
-            Female
+            Console.WriteLine($"\n{MainInfo()}" +                                            
+                              $"\n{AdditionalInfo()}");
         }
     }
 }
