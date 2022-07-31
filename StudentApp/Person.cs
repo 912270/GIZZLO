@@ -33,12 +33,15 @@ namespace StudentApp
 
         }
 
-        public abstract string AdditionalInfo();
+        public abstract string Header();
+
+        public abstract string Footer();
 
         public virtual void PrintInfo()
         {
-            Console.WriteLine($"\n{MainInfo()}" +                                            
-                              $"\n{AdditionalInfo()}");
+            Console.WriteLine($"\n{Header()}" +                                            
+                              $"\n{MainInfo()}" +
+                              $"\n{Footer()}");
         }
     }
 }

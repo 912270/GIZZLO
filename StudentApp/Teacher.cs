@@ -16,10 +16,17 @@ namespace StudentApp
 
         public override void PrintInfo()
         {
-            Console.WriteLine("\nПреподаватель" +
-                                $"\n{MainInfo()}" +
-                                $"\nПредмет: {Subject}");
+            base.PrintInfo();
+        }
 
+        public override string Header()
+        {
+            return "Преподаватель";
+        }
+
+        public override string Footer()
+        {
+            return $"Предмет: {Subject}";
         }
 
     }

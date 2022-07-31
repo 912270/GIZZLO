@@ -20,7 +20,7 @@ namespace StudentApp
 
         public Service()
         {
-            persons.Add(new Teacher("Sergey", "Kamyshev", 38, Gender.Male, "111-111", "Программирование на языке C#"));
+            persons.Add(new Teacher("Kamyshev", "Sergey", 38, Gender.Male, "111-111", "Программирование на языке C#"));
             persons.Add(new Student("Selin", "Kirill", 23, Gender.Male, "222-222", "ПС-3"));
             persons.Add(new Student("Lebedev", "Valeriy", 25, Gender.Male, "333-333", "ПС-3"));
             persons.Add(new Student("Uchanova", "Marina", 27, Gender.Female, "444-444", "ПС-3"));
@@ -82,16 +82,21 @@ namespace StudentApp
             }
         }
 
-        public void ShowMenu()
+        /*public void Start()
         {
-            /*Console.WriteLine("\n\t\t\tПреподаватель" +
-                              $"Фамилия: {SecondName}\n" +
-                              $"Имя: {FirstName}\n" +
-                              $"Возраст: {Age}\n" +
-                              $"Пол: {gender.ToString()}\n" +
-                              $"Телефон: {PhoneNumber}" +
-                              $"Предмет: {Subject}");*/
-        }
+            ShowMenu();
+        }*/
+
+        /*public void ShowMenu()
+        {
+            Console.WriteLine("\n=====================================\n" +
+                              $"\t\tМеню\n" +
+                              $"=====================================\n" +
+                              $"1. Отобразить... \n" +
+                              $"2. Добавить \n" +
+                              $"3. Удалить ");
+            var menu = int.Parse(Console.ReadLine());
+        }*/
 
         /*public async void Save()
         {

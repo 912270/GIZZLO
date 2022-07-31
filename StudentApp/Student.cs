@@ -17,11 +17,17 @@ namespace StudentApp
 
         public override void PrintInfo()
         {
+            base.PrintInfo();
+        }
 
-            Console.WriteLine("\nСтудент" +
-                                $"\n{MainInfo()}" +
-                                $"\nГруппа: {Group}");
+        public override string Header()
+        {
+            return "Студент";
+        }
 
+        public override string Footer()
+        {
+            return $"Группа: {Group}";
         }
 
     }
