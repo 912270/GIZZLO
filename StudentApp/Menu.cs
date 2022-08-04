@@ -2,14 +2,47 @@
 using System.Collections.Generic;
 using System.Text;
 using GenSpace;
+using PersonLibrary.Model;
 
 namespace StudentApp
 {
     internal class Menu
     {
-        Service serv = new Service();
+        //Service serv = new Service();
+        Repo repo = new Repo();
 
         private string name;
+
+        public void ShowAll() //Отображение всех персон
+        {
+            foreach (var person in repo.list())
+            {
+                Console.WriteLine(person.SPrintInfo());
+            }
+        }
+
+        public void Show(string name, string lastname) //Отображение по имени и фамилии
+        {
+            foreach (var person in repo.list())
+            {
+                if (person.FirstName == name && person.SecondName == lastname)
+                {
+                    Console.WriteLine(person.SPrintInfo());
+                    break;
+                }
+            }
+        }
+
+        public void Show<T>() //Отображение по классу(типу)
+        {
+            foreach (var person in repo.list())
+            {
+                if (person is T)
+                {
+                    Console.WriteLine(person.SPrintInfo());
+                }
+            }
+        }
 
         private string header()
         {
@@ -86,7 +119,7 @@ namespace StudentApp
 
             Console.WriteLine($"{header()}");
 
-            serv.ShowAll();
+            ShowAll();
 
             Console.WriteLine($"\n1. Добавить... \n" +
                               $"2. Удалить \n" +
@@ -126,10 +159,10 @@ namespace StudentApp
             switch (menu)
             {
                 case 1:
-                    serv.Show<Teacher>();
+                    Show<Teacher>();
                     break;
                 case 2:
-                    serv.Show<Student>();
+                    Show<Student>();
                     break;
                 case 3:
                     PrintMenu();
@@ -157,7 +190,7 @@ namespace StudentApp
             Console.WriteLine($"Введите имя:");
             string PFName = Convert.ToString(Console.ReadLine());
 
-            serv.Show(PFName, PLName);
+            Show(PFName, PLName);
 
             Console.WriteLine($"\n1. Назад ");
 
@@ -244,9 +277,9 @@ namespace StudentApp
             Console.WriteLine($"Введите предмет:");
             string PSub = Convert.ToString(Console.ReadLine());
 
-            serv.Add(new Teacher(PLName, PFName, PAge, gen, PPhone, PSub));
+            repo.Add(new Teacher(PLName, PFName, PAge, gen, PPhone, PSub));
 
-            serv.Show(PFName, PLName);
+            Show(PFName, PLName);
 
             Console.WriteLine($"\n1. Главное меню ");
 
@@ -305,9 +338,9 @@ namespace StudentApp
             Console.WriteLine($"Введите группу:");
             string PGroup = Convert.ToString(Console.ReadLine());
 
-            serv.Add(new Student(PLName, PFName, PAge, gen, PPhone, PGroup));
+            repo.Add(new Student(PLName, PFName, PAge, gen, PPhone, PGroup));
 
-            serv.Show(PFName, PLName);
+            Show(PFName, PLName);
 
             Console.WriteLine($"\n1. Главное меню ");
 
@@ -337,7 +370,7 @@ namespace StudentApp
             Console.WriteLine($"Введите имя:");
             string PFName = Convert.ToString(Console.ReadLine());
 
-            serv.Remove(PFName, PLName);
+            repo.Remove(PFName, PLName);
 
             Console.WriteLine($"\n1. Главное меню ");
 

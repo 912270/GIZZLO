@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using GenSpace;
 
-namespace StudentApp
+namespace PersonLibrary.Model
 {
-    class Student: Person
+    public class Student : Person
     {
 
         public Student(string secondName, string firstName, int age, Gender gender, string phoneNumber, string group) : base(secondName, firstName, age, gender, phoneNumber)
@@ -15,10 +15,15 @@ namespace StudentApp
 
         public string Group { get; set; }
 
-        public override void PrintInfo()
+        public override string SPrintInfo()
+        {
+            return base.SPrintInfo();
+        }
+
+        /*public override void PrintInfo()
         {
             base.PrintInfo();
-        }
+        }*/
 
         public override string Header()
         {

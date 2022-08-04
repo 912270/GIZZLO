@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using GenSpace;
 
-namespace StudentApp
+namespace PersonLibrary.Model
 {
-    internal abstract class Person
+    public abstract class Person
     {
         public string FirstName { get; private set; }
         public string SecondName { get; private set; }
@@ -15,11 +15,11 @@ namespace StudentApp
 
         public Person(string secondName, string firstName, int age, Gender gender, string phoneNumber)
         {
-            this.SecondName = secondName;
-            this.FirstName = firstName;
-            this.Age = age;
+            SecondName = secondName;
+            FirstName = firstName;
+            Age = age;
             this.gender = gender;
-            this.PhoneNumber = phoneNumber;
+            PhoneNumber = phoneNumber;
         }
 
         public string MainInfo()
@@ -37,11 +37,18 @@ namespace StudentApp
 
         public abstract string Footer();
 
-        public virtual void PrintInfo()
+        public virtual string SPrintInfo()
+        {
+            return $"\n{Header()}" +
+                    $"\n{MainInfo()}" +
+                    $"\n{Footer()}";
+        }
+
+        /*public virtual void PrintInfo()
         {
             Console.WriteLine($"\n{Header()}" +                                            
                               $"\n{MainInfo()}" +
                               $"\n{Footer()}");
-        }
+        }*/
     }
 }

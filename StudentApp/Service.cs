@@ -6,66 +6,30 @@ using System.Text;
 using System.Text.Json;
 using System.Xml.Serialization;
 using GenSpace;
+using PersonLibrary.Model;
 
 namespace StudentApp
 {
     internal class Service
     {
 
-        List<Person> persons = new List<Person>();
-
-        //XmlSerializer savex = new XmlSerializer(typeof(List<Person>));
-
-        //private JsonSerializerOptions options = new JsonSerializerOptions { WriteIndented = true };
-
-        public Service()
-        {
-            persons.Add(new Teacher("Kamyshev", "Sergey", 38, Gender.Male, "111-111", "Программирование на языке C#"));
-            persons.Add(new Student("Selin", "Kirill", 23, Gender.Male, "222-222", "ПС-3"));
-            persons.Add(new Student("Lebedev", "Valeriy", 25, Gender.Male, "333-333", "ПС-3"));
-            persons.Add(new Student("Uchanova", "Marina", 27, Gender.Female, "444-444", "ПС-3"));
-            persons.Add(new Student("Ovchinnikov", "Aleksey", 21, Gender.Male, "555-555", "ПС-3"));
-            persons.Add(new Student("Kolesnikov", "Valeriy", 26, Gender.Male, "666-666", "ПС-3"));
-            persons.Add(new Student("Grigorev", "Ivan", 24, Gender.Male, "777-777", "ПС-3"));
-            persons.Add(new Student("Egorov", "Vitaliy", 20, Gender.Male, "888-888", "ПС-3"));
-            persons.Add(new Student("Portnov", "Evgeniy", 28, Gender.Male, "999-999", "ПС-3"));
-            persons.Add(new Student("Semenov", "Vladislav", 22, Gender.Male, "101-101", "ПС-3"));
-            persons.Add(new Student("Vasilyev", "Max", 29, Gender.Male, "110-110", "ПС-3"));
-
-        }
-
-        public void Add(Person person) //Добавление
-        {
-            persons.Add(person);
-        }
-
-        public void Remove(string name, string lastname)  //Удаление
-        {
-            foreach (var person in persons)
-            {
-                if (person.FirstName == name && person.SecondName == lastname)
-                {
-                    persons.Remove(person);
-                    break;
-                }
-            }
-        }
+        Repo rep = new Repo();
 
         public void ShowAll() //Отображение всех персон
         {
-            foreach (var person in persons)
+            foreach (var person in rep.list())
             {
-                person.PrintInfo();
+                Console.WriteLine(person.SPrintInfo());
             }
         }
 
         public void Show(string name, string lastname) //Отображение по имени и фамилии
         {
-            foreach (var person in persons)
+            foreach (var person in rep.list())
             {
                 if (person.FirstName == name && person.SecondName == lastname)
                 {
-                    person.PrintInfo();
+                    Console.WriteLine(person.SPrintInfo());
                     break;
                 }
             }
@@ -73,11 +37,11 @@ namespace StudentApp
 
         public void Show<T>() //Отображение по классу(типу)
         {
-            foreach (var person in persons)
+            foreach (var person in rep.list())
             {
                 if (person is T)
                 {
-                    person.PrintInfo();
+                    Console.WriteLine(person.SPrintInfo());
                 }
             }
         }
