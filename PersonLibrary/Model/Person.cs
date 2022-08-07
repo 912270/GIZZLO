@@ -37,18 +37,26 @@ namespace PersonLibrary.Model
 
         public abstract string Footer();
 
-        public virtual string SPrintInfo()
+        public virtual string PrintInfo()
         {
             return $"\n{Header()}" +
                     $"\n{MainInfo()}" +
                     $"\n{Footer()}";
         }
 
-        /*public virtual void PrintInfo()
+        public override bool Equals(object obj)
         {
-            Console.WriteLine($"\n{Header()}" +                                            
-                              $"\n{MainInfo()}" +
-                              $"\n{Footer()}");
-        }*/
+            if (obj is Person person)
+            {
+                if (this.FirstName == person.FirstName && this.SecondName == person.SecondName)
+                    return true;
+            }
+            return false;
+        }
+
+        public override string ToString()
+        {
+            return $"{this.FirstName} {this.SecondName}";
+        }
     }
 }

@@ -1,5 +1,8 @@
-﻿using System;
+﻿using GenSpace;
+using PersonLibrary.Model;
+using System;
 using System.Collections.Generic;
+
 
 namespace StudentApp
 {
@@ -8,7 +11,7 @@ namespace StudentApp
         static void Main(string[] args)
         {
 
-            Menu menu = new Menu();
+            Service menu = new Service();
 
             menu.ShowMenu();
 

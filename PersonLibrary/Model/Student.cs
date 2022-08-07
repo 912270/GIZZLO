@@ -15,15 +15,10 @@ namespace PersonLibrary.Model
 
         public string Group { get; set; }
 
-        public override string SPrintInfo()
+        public override string PrintInfo()
         {
-            return base.SPrintInfo();
+            return base.PrintInfo();
         }
-
-        /*public override void PrintInfo()
-        {
-            base.PrintInfo();
-        }*/
 
         public override string Header()
         {
