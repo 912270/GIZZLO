@@ -8,13 +8,18 @@ namespace PersonLibrary.Model
     public class Repo
     {
 
+        /// <summary>
+        /// Список персон
+        /// </summary>
         List<Person> persons = new List<Person>();
+        /// <summary>
+        /// Список учителей
+        /// </summary>
         List<Teacher> teachers = new List<Teacher>();
+        /// <summary>
+        /// Список студентов
+        /// </summary>
         List<Student> students = new List<Student>();
-
-        //XmlSerializer savex = new XmlSerializer(typeof(List<Person>));
-
-        //private JsonSerializerOptions options = new JsonSerializerOptions { WriteIndented = true };
 
         public Repo()
         {
@@ -32,14 +37,23 @@ namespace PersonLibrary.Model
 
             persons.AddRange(teachers);
             persons.AddRange(students);
-
         }
 
+        /// <summary>
+        /// Вывод списка персон
+        /// </summary>
+        /// <returns></returns>
         public List<Person> list()
         {
             return persons;
         }
 
+        /// <summary>
+        /// Чтение персоны из списка
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="lastname"></param>
+        /// <returns></returns>
         public object Read(string name, string lastname)
         {
             foreach (var person in persons)
@@ -52,7 +66,12 @@ namespace PersonLibrary.Model
             return null;
         }
 
-        public void Add(Person person) //Добавление
+        /// <summary>
+        /// Добавление персоны
+        /// </summary>
+        /// <param name="person"></param>
+        /// <exception cref="Exception"></exception>
+        public void Add(Person person)
         {
             foreach (var pers in persons)
             {
@@ -65,7 +84,13 @@ namespace PersonLibrary.Model
             }
         }
 
-        public void Remove(string name, string lastname)  //Удаление
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="lastname"></param>
+        /// <exception cref="Exception"></exception>
+        public void Remove(string name, string lastname)
         {
             foreach (var person in persons)
             {
@@ -74,37 +99,23 @@ namespace PersonLibrary.Model
                     persons.Remove(person);
                     break;
                 }
+                else throw new Exception("Пользователя с таким именем не существует");
             }
         }
 
-        public void Update<T>(string name, string lastname, int age, string phone, string optInfo)
+        /// <summary>
+        /// Обновление персоны
+        /// </summary>
+        /// <param name="person"></param>
+        public void Update(Person person)
         {
-            if (typeof(T).Equals(typeof(Teacher)))
-            {
-                foreach (var person in teachers)
-                {
-                    if (person.FirstName == name && person.SecondName == lastname)
-                    {
-                        person.Age = age;
-                        person.PhoneNumber = phone;
-                        person.Subject = optInfo;
-                        break;
-                    }
-                }
-            }
-            else if (typeof(T).Equals(typeof(Student)))
-            {
-                foreach (var person in students)
-                {
-                    if (person.FirstName == name && person.SecondName == lastname)
-                    {
-                        person.Age = age;
-                        person.PhoneNumber = phone;
-                        person.Group = optInfo;
-                        break;
-                    }
-                }
-            }
+            var oldPerson =  Read(person.FirstName, person.SecondName);
+            (oldPerson as Person).Age = person.Age;
+            (oldPerson as Person).PhoneNumber = person.PhoneNumber;
+            if (person is Teacher)
+                (oldPerson as Teacher).Subject = (person as Teacher).Subject;
+            else if (person is Student)
+                (oldPerson as Student).Group = (person as Student).Group;
         }
     }
 }

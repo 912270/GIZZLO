@@ -7,12 +7,35 @@ namespace PersonLibrary.Model
 {
     public abstract class Person
     {
+        /// <summary>
+        /// Имя
+        /// </summary>
         public string FirstName { get; private set; }
+        /// <summary>
+        /// Фамилия
+        /// </summary>
         public string SecondName { get; private set; }
+        /// <summary>
+        /// Возраст
+        /// </summary>
         public int Age { get; set; }
+        /// <summary>
+        /// Номер телефона
+        /// </summary>
         public string PhoneNumber { get; set; }
+        /// <summary>
+        /// Пол
+        /// </summary>
         public Gender gender { get; private set; }
 
+        /// <summary>
+        /// Персона
+        /// </summary>
+        /// <param name="secondName"></param>
+        /// <param name="firstName"></param>
+        /// <param name="age"></param>
+        /// <param name="gender"></param>
+        /// <param name="phoneNumber"></param>
         public Person(string secondName, string firstName, int age, Gender gender, string phoneNumber)
         {
             SecondName = secondName;
@@ -22,6 +45,10 @@ namespace PersonLibrary.Model
             PhoneNumber = phoneNumber;
         }
 
+        /// <summary>
+        /// Вывод основной информации о персоне
+        /// </summary>
+        /// <returns></returns>
         public string MainInfo()
         {
 
@@ -33,10 +60,22 @@ namespace PersonLibrary.Model
 
         }
 
+        /// <summary>
+        /// Абстракт для вывода названия типа наследника
+        /// </summary>
+        /// <returns></returns>
         public abstract string Header();
 
+        /// <summary>
+        /// Абстракт дополнительной информации
+        /// </summary>
+        /// <returns></returns>
         public abstract string Footer();
 
+        /// <summary>
+        /// Вывод информации о персоне
+        /// </summary>
+        /// <returns></returns>
         public virtual string PrintInfo()
         {
             return $"\n{Header()}" +
@@ -44,6 +83,11 @@ namespace PersonLibrary.Model
                     $"\n{Footer()}";
         }
 
+        /// <summary>
+        /// Сравнение персон по имени и фамилии
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public override bool Equals(object obj)
         {
             if (obj is Person person)
@@ -54,6 +98,10 @@ namespace PersonLibrary.Model
             return false;
         }
 
+        /// <summary>
+        /// Вывод имени и фамилии персоны
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             return $"{this.FirstName} {this.SecondName}";

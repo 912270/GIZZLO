@@ -6,13 +6,19 @@ using PersonLibrary.Model;
 
 namespace StudentApp
 {
+    /// <summary>
+    /// Взаимодействие с репозиторием
+    /// </summary>
     internal class Service
     {
         Repo repo = new Repo();
 
         private string name;
 
-        public void ShowAll() //Отображение всех персон
+        /// <summary>
+        /// Отображение всех персон
+        /// </summary>
+        public void ShowAll()
         {
             foreach (var person in repo.list())
             {
@@ -20,7 +26,12 @@ namespace StudentApp
             }
         }
 
-        public void Show(string name, string lastname) //Отображение по имени и фамилии
+        /// <summary>
+        /// Отображение по имени и фамилии
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="lastname"></param>
+        public void Show(string name, string lastname)
         {
             foreach (var person in repo.list())
             {
@@ -32,7 +43,11 @@ namespace StudentApp
             }
         }
 
-        public void Show<T>() //Отображение по классу(типу)
+        /// <summary>
+        /// Отображение по классу(типу)
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        public void Show<T>()
         {
             foreach (var person in repo.list())
             {
@@ -43,6 +58,10 @@ namespace StudentApp
             }
         }
 
+        /// <summary>
+        /// Заголовок
+        /// </summary>
+        /// <returns></returns>
         private string header()
         {
             string result = "\n=====================================\n" +
@@ -52,6 +71,10 @@ namespace StudentApp
             return result;
         }
 
+        /// <summary>
+        /// Главное меню
+        /// </summary>
+        /// <exception cref="Exception"></exception>
         public void ShowMenu()
         {
             Console.Clear();
@@ -79,6 +102,10 @@ namespace StudentApp
             }
         }
 
+        /// <summary>
+        /// Меню "Кого отобразить?"
+        /// </summary>
+        /// <exception cref="Exception"></exception>
         public void PrintMenu()
         {
             Console.Clear();
@@ -110,6 +137,10 @@ namespace StudentApp
             }
         }
 
+        /// <summary>
+        /// Меню "Отобразить всех"
+        /// </summary>
+        /// <exception cref="Exception"></exception>
         public void ShowAllMenu()
         {
             Console.Clear();
@@ -142,6 +173,10 @@ namespace StudentApp
             }
         }
 
+        /// <summary>
+        /// Меню "Выбрать тип для отображения"
+        /// </summary>
+        /// <exception cref="Exception"></exception>
         public void PrintTypeMenu()
         {
             Console.Clear();
@@ -176,6 +211,10 @@ namespace StudentApp
 
         }
 
+        /// <summary>
+        /// Меню "Введите информацию о персоне для отображения"
+        /// </summary>
+        /// <exception cref="Exception"></exception>
         public void PersonInfoMenu()
         {
             Console.Clear();
@@ -205,6 +244,10 @@ namespace StudentApp
             }
         }
 
+        /// <summary>
+        /// Меню "Кого добавить?"
+        /// </summary>
+        /// <exception cref="Exception"></exception>
         public void AddMenu()
         {
             Console.Clear();
@@ -234,6 +277,10 @@ namespace StudentApp
 
         }
 
+        /// <summary>
+        /// Меню "Ввода информации об учителе и отображение добавленной персоны"
+        /// </summary>
+        /// <exception cref="Exception"></exception>
         public void TeacherAddMenu()
         {
             Gender gen;
@@ -295,6 +342,10 @@ namespace StudentApp
 
         }
 
+        /// <summary>
+        /// Меню "Ввода информации о студенте и отображение добавленной персоны"
+        /// </summary>
+        /// <exception cref="Exception"></exception>
         public void StudentAddMenu()
         {
             Gender gen;
@@ -356,6 +407,10 @@ namespace StudentApp
 
         }
 
+        /// <summary>
+        /// Меню "Удалить персону"
+        /// </summary>
+        /// <exception cref="Exception"></exception>
         public void RemoveMenu()
         {
             Console.Clear();
