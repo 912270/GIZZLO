@@ -77,7 +77,7 @@ namespace PersonLibrary.Model
             {
                 if (person.FirstName == pers.FirstName && person.SecondName == pers.SecondName)
                 {
-                    throw new Exception("Пользователь с таким именем уже существует");
+                    throw new ExistingPersonException("Пользователь с таким именем уже существует");
                 }
                 else persons.Add(person);
                 break;
@@ -99,7 +99,7 @@ namespace PersonLibrary.Model
                     persons.Remove(person);
                     break;
                 }
-                else throw new Exception("Пользователя с таким именем не существует");
+                else throw new NotFoundPersonException("Пользователя с таким именем не существует");
             }
         }
 
