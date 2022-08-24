@@ -1,6 +1,8 @@
 ﻿using GenSpace;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace PersonLibrary.Model
@@ -23,7 +25,7 @@ namespace PersonLibrary.Model
 
         public Repo()
         {
-            teachers.Add(new Teacher("Kamyshev", "Sergey", 38, Gender.Male, "111-111", "Программирование на языке C#"));
+            /*teachers.Add(new Teacher("Kamyshev", "Sergey", 38, Gender.Male, "111-111", "Программирование на языке C#"));
             students.Add(new Student("Selin", "Kirill", 23, Gender.Male, "222-222", "ПС-3"));
             students.Add(new Student("Lebedev", "Valeriy", 25, Gender.Male, "333-333", "ПС-3"));
             students.Add(new Student("Uchanova", "Marina", 27, Gender.Female, "444-444", "ПС-3"));
@@ -33,10 +35,14 @@ namespace PersonLibrary.Model
             students.Add(new Student("Egorov", "Vitaliy", 20, Gender.Male, "888-888", "ПС-3"));
             students.Add(new Student("Portnov", "Evgeniy", 28, Gender.Male, "999-999", "ПС-3"));
             students.Add(new Student("Semenov", "Vladislav", 22, Gender.Male, "101-101", "ПС-3"));
-            students.Add(new Student("Vasilyev", "Max", 29, Gender.Male, "110-110", "ПС-3"));
+            students.Add(new Student("Vasilyev", "Max", 29, Gender.Male, "110-110", "ПС-3"));*/
+
+            Load();
 
             persons.AddRange(teachers);
             persons.AddRange(students);
+
+            //Save();
         }
 
         /// <summary>
@@ -116,6 +122,31 @@ namespace PersonLibrary.Model
                 (oldPerson as Teacher).Subject = (person as Teacher).Subject;
             else if (person is Student)
                 (oldPerson as Student).Group = (person as Student).Group;
+        }
+
+        /// <summary>
+        /// Сохранение в JSON
+        /// </summary>
+        public void Save()
+        {
+            var jsonPerson = JsonConvert.SerializeObject(persons, Formatting.Indented);
+            File.WriteAllText(@"person.json", jsonPerson);
+
+            var jsonStudent = JsonConvert.SerializeObject(students, Formatting.Indented);
+            File.WriteAllText(@"student.json", jsonStudent);
+
+            var jsonTeacher = JsonConvert.SerializeObject(teachers, Formatting.Indented);
+            File.WriteAllText(@"teacher.json", jsonTeacher);
+        }
+
+        /// <summary>
+        /// Загрузка из JSON
+        /// </summary>
+        public void Load()
+        {
+            students = JsonConvert.DeserializeObject<List<Student>>(File.ReadAllText(@"student.json"));
+
+            teachers = JsonConvert.DeserializeObject<List<Teacher>>(File.ReadAllText(@"teacher.json"));
         }
     }
 }
