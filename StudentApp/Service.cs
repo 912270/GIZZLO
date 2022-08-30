@@ -11,16 +11,44 @@ namespace StudentApp
     /// </summary>
     internal class Service
     {
-        Repo repo = new Repo();
+        Repo<Student> students = new Repo<Student>();
+        Repo<Teacher> teachers = new Repo<Teacher>();
+
+        List<Person> persons = new List<Person>();
+
+        //
+        //Переделать все методы под обобщенный репозиторий
+        //
+
+        public Service()
+        {
+            persons.AddRange(students.list);
+            persons.AddRange(teachers.list);
+        }
 
         private string name;
+
+        public Person Find(Person person)
+        {
+            foreach (var student in students.list)
+            {
+                if (student.Equals(person))
+                    return student;
+            }
+            foreach (var teacher in teachers.list)
+            {
+                if (teacher.Equals(person))
+                    return teacher;
+            }
+            return null;
+        }
 
         /// <summary>
         /// Отображение всех персон
         /// </summary>
         public void ShowAll()
         {
-            foreach (var person in repo.list())
+            foreach (var person in persons)
             {
                 Console.WriteLine(person.PrintInfo());
             }
@@ -33,7 +61,7 @@ namespace StudentApp
         /// <param name="lastname"></param>
         public void Show(string name, string lastname)
         {
-            foreach (var person in repo.list())
+            foreach (var person in persons)
             {
                 if (person.FirstName == name && person.SecondName == lastname)
                 {
@@ -49,7 +77,7 @@ namespace StudentApp
         /// <typeparam name="T"></typeparam>
         public void Show<T>()
         {
-            foreach (var person in repo.list())
+            foreach (var person in persons)
             {
                 if (person is T)
                 {
@@ -323,7 +351,7 @@ namespace StudentApp
             Console.WriteLine($"Введите предмет:");
             string PSub = Convert.ToString(Console.ReadLine());
 
-            repo.Add(new Teacher(PLName, PFName, PAge, gen, PPhone, PSub));
+            teachers.Add(new Teacher(PLName, PFName, PAge, gen, PPhone, PSub));
 
             Show(PFName, PLName);
 
@@ -388,7 +416,7 @@ namespace StudentApp
             Console.WriteLine($"Введите группу:");
             string PGroup = Convert.ToString(Console.ReadLine());
 
-            repo.Add(new Student(PLName, PFName, PAge, gen, PPhone, PGroup));
+            students.Add(new Student(PLName, PFName, PAge, gen, PPhone, PGroup));
 
             Show(PFName, PLName);
 
@@ -424,7 +452,7 @@ namespace StudentApp
             Console.WriteLine($"Введите имя:");
             string PFName = Convert.ToString(Console.ReadLine());
 
-            repo.Remove(PFName, PLName);
+            //students.Remove(PFName, PLName);
 
             Console.WriteLine($"\n1. Главное меню ");
 

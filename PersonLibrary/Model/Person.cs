@@ -98,6 +98,11 @@ namespace PersonLibrary.Model
             return false;
         }
 
+        public bool Equals(string name, string lastname)
+        {
+            return this.FirstName.ToLower() == name.ToLower() && this.SecondName == lastname;
+        }
+
         /// <summary>
         /// Вывод имени и фамилии персоны
         /// </summary>

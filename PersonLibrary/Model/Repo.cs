@@ -7,21 +7,22 @@ using System.Text;
 
 namespace PersonLibrary.Model
 {
-    public class Repo
+    public class Repo<T> where T: Person
     {
 
         /// <summary>
         /// Список персон
         /// </summary>
-        List<Person> persons = new List<Person>();
+        List<T> persons = new List<T>();
+
         /// <summary>
         /// Список учителей
         /// </summary>
-        List<Teacher> teachers = new List<Teacher>();
+        //List<Teacher> teachers = new List<Teacher>();
         /// <summary>
         /// Список студентов
         /// </summary>
-        List<Student> students = new List<Student>();
+        //List<Student> students = new List<Student>();
 
         public Repo()
         {
@@ -38,21 +39,12 @@ namespace PersonLibrary.Model
             students.Add(new Student("Vasilyev", "Max", 29, Gender.Male, "110-110", "ПС-3"));*/
 
             Load();
-
-            persons.AddRange(teachers);
-            persons.AddRange(students);
-
-            //Save();
         }
 
         /// <summary>
-        /// Вывод списка персон
+        /// Список персон
         /// </summary>
-        /// <returns></returns>
-        public List<Person> list()
-        {
-            return persons;
-        }
+        public List<T> list { get; set; }
 
         /// <summary>
         /// Чтение персоны из списка
@@ -60,11 +52,11 @@ namespace PersonLibrary.Model
         /// <param name="name"></param>
         /// <param name="lastname"></param>
         /// <returns></returns>
-        public object Read(string name, string lastname)
+        public T Read(string name, string lastname)
         {
-            foreach (var person in persons)
+            foreach (var person in list)
             {
-                if (person.FirstName == name && person.SecondName == lastname)
+                if (person.Equals(name, lastname))
                 {
                     return person;
                 }
@@ -76,33 +68,35 @@ namespace PersonLibrary.Model
         /// Добавление персоны
         /// </summary>
         /// <param name="person"></param>
-        /// <exception cref="Exception"></exception>
-        public void Add(Person person)
+        /// <exception cref="ExistingPersonException"></exception>
+        public void Add(T person)
         {
-            foreach (var pers in persons)
+            foreach (var pers in list)
             {
-                if (person.FirstName == pers.FirstName && person.SecondName == pers.SecondName)
+                if (person.Equals(pers))
                 {
                     throw new ExistingPersonException("Пользователь с таким именем уже существует");
                 }
-                else persons.Add(person);
+                else list.Add(person);
+                this.Save();
                 break;
             }
         }
 
         /// <summary>
-        /// 
+        /// Удаление персоны
         /// </summary>
         /// <param name="name"></param>
         /// <param name="lastname"></param>
-        /// <exception cref="Exception"></exception>
+        /// <exception cref="NotFoundPersonException"></exception>
         public void Remove(string name, string lastname)
         {
-            foreach (var person in persons)
+            foreach (var person in list)
             {
                 if (person.FirstName == name && person.SecondName == lastname)
                 {
-                    persons.Remove(person);
+                    list.Remove(person);
+                    this.Save();
                     break;
                 }
                 else throw new NotFoundPersonException("Пользователя с таким именем не существует");
@@ -112,31 +106,33 @@ namespace PersonLibrary.Model
         /// <summary>
         /// Обновление персоны
         /// </summary>
-        /// <param name="person"></param>
-        public void Update(Person person)
+        /// <param name="oldPerson"></param>
+        /// <param name="newPerson"></param>
+        public void Update(T oldPerson, T newPerson)
         {
-            var oldPerson =  Read(person.FirstName, person.SecondName);
-            (oldPerson as Person).Age = person.Age;
-            (oldPerson as Person).PhoneNumber = person.PhoneNumber;
-            if (person is Teacher)
-                (oldPerson as Teacher).Subject = (person as Teacher).Subject;
-            else if (person is Student)
-                (oldPerson as Student).Group = (person as Student).Group;
+            list.Remove(oldPerson);
+            list.Add(newPerson);
         }
+
+        /// <summary>
+        /// Формирование имени файла
+        /// </summary>
+        /// <returns></returns>
+        private string FileNameSet() => string.Format("{0}.json", typeof(T).Name);
 
         /// <summary>
         /// Сохранение в JSON
         /// </summary>
         public void Save()
         {
-            var jsonPerson = JsonConvert.SerializeObject(persons, Formatting.Indented);
-            File.WriteAllText(@"person.json", jsonPerson);
+            var json = JsonConvert.SerializeObject(persons, Formatting.Indented);
+            File.WriteAllText(FileNameSet(), json);
 
-            var jsonStudent = JsonConvert.SerializeObject(students, Formatting.Indented);
+            /*var jsonStudent = JsonConvert.SerializeObject(students, Formatting.Indented);
             File.WriteAllText(@"student.json", jsonStudent);
 
             var jsonTeacher = JsonConvert.SerializeObject(teachers, Formatting.Indented);
-            File.WriteAllText(@"teacher.json", jsonTeacher);
+            File.WriteAllText(@"teacher.json", jsonTeacher);*/
         }
 
         /// <summary>
@@ -144,9 +140,11 @@ namespace PersonLibrary.Model
         /// </summary>
         public void Load()
         {
-            students = JsonConvert.DeserializeObject<List<Student>>(File.ReadAllText(@"student.json"));
+            persons = JsonConvert.DeserializeObject<List<T>>(File.ReadAllText(FileNameSet()));
 
-            teachers = JsonConvert.DeserializeObject<List<Teacher>>(File.ReadAllText(@"teacher.json"));
+            /*students = JsonConvert.DeserializeObject<List<Student>>(File.ReadAllText(@"student.json"));
+
+            teachers = JsonConvert.DeserializeObject<List<Teacher>>(File.ReadAllText(@"teacher.json"));*/
         }
     }
 }
