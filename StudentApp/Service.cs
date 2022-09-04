@@ -16,33 +16,17 @@ namespace StudentApp
 
         List<Person> persons = new List<Person>();
 
+        void DisplayMessage(RepoEventArgs e) => Console.WriteLine(e.Message);
+
         public Service()
         {
-            persons.AddRange(students.list);
-            persons.AddRange(teachers.list);
+            students.Notify += DisplayMessage;
+            students.Notify += Log.Info;
+            teachers.Notify += DisplayMessage;
+            teachers.Notify += Log.Info;
         }
 
         private string name;
-
-        /// <summary>
-        /// Поиск персоны
-        /// </summary>
-        /// <param name="person"></param>
-        /// <returns></returns>
-        public Person Find(Person person)
-        {
-            foreach (var student in students.list)
-            {
-                if (student.Equals(person))
-                    return student;
-            }
-            foreach (var teacher in teachers.list)
-            {
-                if (teacher.Equals(person))
-                    return teacher;
-            }
-            return null;
-        }
 
         /// <summary>
         /// Отображение всех персон
@@ -66,22 +50,10 @@ namespace StudentApp
         /// <param name="lastname"></param>
         public void Show(string name, string lastname)
         {
-            foreach (var teacher in teachers.list)
-            {
-                if (teacher.FirstName == name && teacher.SecondName == lastname)
-                {
-                    Console.WriteLine(teacher.PrintInfo());
-                    return;
-                }
-            }
-            foreach (var student in students.list)
-            {
-                if (student.FirstName == name && student.SecondName == lastname)
-                {
-                    Console.WriteLine(student.PrintInfo());
-                    return;
-                }
-            }
+            if (teachers.Read(name, lastname) != null)
+                Console.WriteLine(teachers.Read(name, lastname).PrintInfo());
+            if (students.Read(name, lastname) != null)
+                Console.WriteLine(students.Read(name, lastname).PrintInfo());
         }
 
         /// <summary>

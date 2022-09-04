@@ -9,6 +9,8 @@ namespace PersonLibrary.Model
 {
     public class Repo<T> where T: Person
     {
+        public delegate void RepoHandler(RepoEventArgs e);
+        public event RepoHandler? Notify;
         public Repo()
         {
             Load();
@@ -50,10 +52,12 @@ namespace PersonLibrary.Model
                 {
                     throw new ExistingPersonException("Пользователь с таким именем уже существует");
                 }
-                else list.Add(person);
-                this.Save();
-                break;
             }
+            list.Add(person);
+            this.Save();
+            Notify?.Invoke(new RepoEventArgs(string.Format("Добавлена персона: {0} {1}",
+                                                person.FirstName, 
+                                                person.SecondName)));
         }
 
         /// <summary>
@@ -70,6 +74,9 @@ namespace PersonLibrary.Model
                 {
                     list.Remove(person);
                     this.Save();
+                    Notify?.Invoke(new RepoEventArgs(string.Format("Удаление персоны: {0} {1}",
+                                                        person.FirstName,
+                                                        person.SecondName)));
                     return;
                 }
             }
@@ -85,6 +92,9 @@ namespace PersonLibrary.Model
         {
             list.Remove(oldPerson);
             list.Add(newPerson);
+            Notify?.Invoke(new RepoEventArgs(string.Format("Обновление персоны: {0} {1}",
+                                                        newPerson.FirstName,
+                                                        newPerson.SecondName)));
         }
 
         /// <summary>
@@ -100,6 +110,8 @@ namespace PersonLibrary.Model
         {
             var json = JsonConvert.SerializeObject(list, Formatting.Indented);
             File.WriteAllText(FileNameSet(), json);
+            Notify?.Invoke(new RepoEventArgs(string.Format("Сохранение в файл {0}",
+                                                        FileNameSet())));
         }
 
         /// <summary>
@@ -108,6 +120,8 @@ namespace PersonLibrary.Model
         public void Load()
         {
             list = JsonConvert.DeserializeObject<List<T>>(File.ReadAllText(FileNameSet()));
+            Notify?.Invoke(new RepoEventArgs(string.Format("Загрузка из файла {0}",
+                                                        FileNameSet())));
         }
     }
 }
