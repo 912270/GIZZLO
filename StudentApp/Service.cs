@@ -16,10 +16,6 @@ namespace StudentApp
 
         List<Person> persons = new List<Person>();
 
-        //
-        //Переделать все методы под обобщенный репозиторий
-        //
-
         public Service()
         {
             persons.AddRange(students.list);
@@ -28,6 +24,11 @@ namespace StudentApp
 
         private string name;
 
+        /// <summary>
+        /// Поиск персоны
+        /// </summary>
+        /// <param name="person"></param>
+        /// <returns></returns>
         public Person Find(Person person)
         {
             foreach (var student in students.list)
@@ -48,41 +49,61 @@ namespace StudentApp
         /// </summary>
         public void ShowAll()
         {
-            foreach (var person in persons)
+            foreach (var teacher in teachers.list)
             {
-                Console.WriteLine(person.PrintInfo());
+                Console.WriteLine(teacher.PrintInfo());
+            }
+            foreach (var student in students.list)
+            {
+                Console.WriteLine(student.PrintInfo());
             }
         }
 
         /// <summary>
-        /// Отображение по имени и фамилии
+        /// Отображение персоны по имени и фамилии
         /// </summary>
         /// <param name="name"></param>
         /// <param name="lastname"></param>
         public void Show(string name, string lastname)
         {
-            foreach (var person in persons)
+            foreach (var teacher in teachers.list)
             {
-                if (person.FirstName == name && person.SecondName == lastname)
+                if (teacher.FirstName == name && teacher.SecondName == lastname)
                 {
-                    Console.WriteLine(person.PrintInfo());
-                    break;
+                    Console.WriteLine(teacher.PrintInfo());
+                    return;
+                }
+            }
+            foreach (var student in students.list)
+            {
+                if (student.FirstName == name && student.SecondName == lastname)
+                {
+                    Console.WriteLine(student.PrintInfo());
+                    return;
                 }
             }
         }
 
         /// <summary>
-        /// Отображение по классу(типу)
+        /// Отображение всех студентов
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        public void Show<T>()
+        public void ShowAllStudents()
         {
-            foreach (var person in persons)
+            foreach (var student in students.list)
             {
-                if (person is T)
-                {
-                    Console.WriteLine(person.PrintInfo());
-                }
+                Console.WriteLine(student.PrintInfo());
+            }
+        }
+
+        /// <summary>
+        /// Отображение всех преподавателей
+        /// </summary>
+        public void ShowAllTeachers()
+        {
+            foreach (var teacher in teachers.list)
+            {
+                Console.WriteLine(teacher.PrintInfo());
             }
         }
 
@@ -221,10 +242,10 @@ namespace StudentApp
             switch (menu)
             {
                 case 1:
-                    Show<Teacher>();
+                    ShowAllTeachers();
                     break;
                 case 2:
-                    Show<Student>();
+                    ShowAllStudents();
                     break;
                 case 3:
                     PrintMenu();
@@ -452,7 +473,10 @@ namespace StudentApp
             Console.WriteLine($"Введите имя:");
             string PFName = Convert.ToString(Console.ReadLine());
 
-            //students.Remove(PFName, PLName);
+            if (students.Read(PFName, PLName) != null)
+                students.Remove(PFName, PLName);
+            if (teachers.Read(PFName, PLName) != null)
+                teachers.Remove(PFName, PLName);
 
             Console.WriteLine($"\n1. Главное меню ");
 

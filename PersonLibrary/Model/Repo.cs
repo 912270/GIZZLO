@@ -9,35 +9,8 @@ namespace PersonLibrary.Model
 {
     public class Repo<T> where T: Person
     {
-
-        /// <summary>
-        /// Список персон
-        /// </summary>
-        List<T> persons = new List<T>();
-
-        /// <summary>
-        /// Список учителей
-        /// </summary>
-        //List<Teacher> teachers = new List<Teacher>();
-        /// <summary>
-        /// Список студентов
-        /// </summary>
-        //List<Student> students = new List<Student>();
-
         public Repo()
         {
-            /*teachers.Add(new Teacher("Kamyshev", "Sergey", 38, Gender.Male, "111-111", "Программирование на языке C#"));
-            students.Add(new Student("Selin", "Kirill", 23, Gender.Male, "222-222", "ПС-3"));
-            students.Add(new Student("Lebedev", "Valeriy", 25, Gender.Male, "333-333", "ПС-3"));
-            students.Add(new Student("Uchanova", "Marina", 27, Gender.Female, "444-444", "ПС-3"));
-            students.Add(new Student("Ovchinnikov", "Aleksey", 21, Gender.Male, "555-555", "ПС-3"));
-            students.Add(new Student("Kolesnikov", "Valeriy", 26, Gender.Male, "666-666", "ПС-3"));
-            students.Add(new Student("Grigorev", "Ivan", 24, Gender.Male, "777-777", "ПС-3"));
-            students.Add(new Student("Egorov", "Vitaliy", 20, Gender.Male, "888-888", "ПС-3"));
-            students.Add(new Student("Portnov", "Evgeniy", 28, Gender.Male, "999-999", "ПС-3"));
-            students.Add(new Student("Semenov", "Vladislav", 22, Gender.Male, "101-101", "ПС-3"));
-            students.Add(new Student("Vasilyev", "Max", 29, Gender.Male, "110-110", "ПС-3"));*/
-
             Load();
         }
 
@@ -97,10 +70,10 @@ namespace PersonLibrary.Model
                 {
                     list.Remove(person);
                     this.Save();
-                    break;
+                    return;
                 }
-                else throw new NotFoundPersonException("Пользователя с таким именем не существует");
             }
+            throw new NotFoundPersonException("Пользователя с таким именем не существует");
         }
 
         /// <summary>
@@ -125,14 +98,8 @@ namespace PersonLibrary.Model
         /// </summary>
         public void Save()
         {
-            var json = JsonConvert.SerializeObject(persons, Formatting.Indented);
+            var json = JsonConvert.SerializeObject(list, Formatting.Indented);
             File.WriteAllText(FileNameSet(), json);
-
-            /*var jsonStudent = JsonConvert.SerializeObject(students, Formatting.Indented);
-            File.WriteAllText(@"student.json", jsonStudent);
-
-            var jsonTeacher = JsonConvert.SerializeObject(teachers, Formatting.Indented);
-            File.WriteAllText(@"teacher.json", jsonTeacher);*/
         }
 
         /// <summary>
@@ -140,11 +107,19 @@ namespace PersonLibrary.Model
         /// </summary>
         public void Load()
         {
-            persons = JsonConvert.DeserializeObject<List<T>>(File.ReadAllText(FileNameSet()));
-
-            /*students = JsonConvert.DeserializeObject<List<Student>>(File.ReadAllText(@"student.json"));
-
-            teachers = JsonConvert.DeserializeObject<List<Teacher>>(File.ReadAllText(@"teacher.json"));*/
+            list = JsonConvert.DeserializeObject<List<T>>(File.ReadAllText(FileNameSet()));
         }
     }
 }
+
+/*teachers.Add(new Teacher("Kamyshev", "Sergey", 38, Gender.Male, "111-111", "Программирование на языке C#"));
+            students.Add(new Student("Selin", "Kirill", 23, Gender.Male, "222-222", "ПС-3"));
+            students.Add(new Student("Lebedev", "Valeriy", 25, Gender.Male, "333-333", "ПС-3"));
+            students.Add(new Student("Uchanova", "Marina", 27, Gender.Female, "444-444", "ПС-3"));
+            students.Add(new Student("Ovchinnikov", "Aleksey", 21, Gender.Male, "555-555", "ПС-3"));
+            students.Add(new Student("Kolesnikov", "Valeriy", 26, Gender.Male, "666-666", "ПС-3"));
+            students.Add(new Student("Grigorev", "Ivan", 24, Gender.Male, "777-777", "ПС-3"));
+            students.Add(new Student("Egorov", "Vitaliy", 20, Gender.Male, "888-888", "ПС-3"));
+            students.Add(new Student("Portnov", "Evgeniy", 28, Gender.Male, "999-999", "ПС-3"));
+            students.Add(new Student("Semenov", "Vladislav", 22, Gender.Male, "101-101", "ПС-3"));
+            students.Add(new Student("Vasilyev", "Max", 29, Gender.Male, "110-110", "ПС-3"));*/
