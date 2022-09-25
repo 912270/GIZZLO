@@ -97,9 +97,9 @@ namespace LINQ
         #endregion
 
         #region Задание 4
-        /*Текст задан массивом строк. Вам нужно составить лексикографически упорядоченный список всех встречающихся в этом тексте слов.
-
-        Слова нужно сравнивать регистронезависимо, а выводить в нижнем регистре.*/
+        /*Текст задан массивом строк.
+         *Вам нужно составить лексикографически упорядоченный список всех встречающихся в этом тексте слов.
+         *Слова нужно сравнивать регистронезависимо, а выводить в нижнем регистре.*/
 
         static void Task4()
         {
@@ -121,9 +121,30 @@ namespace LINQ
         {
             return textLines
                 .Where(s => !string.IsNullOrEmpty(s))
-                .SelectMany(s => s.Split(" "))
+                .SelectMany(s => s.Split(new[] { ' ', ',', '.', ';' }, StringSplitOptions.RemoveEmptyEntries))
+                .Distinct()
                 .Select(s => s.ToLower())
                 .ToArray();
+        }
+
+        #endregion
+
+        #region Задание 5
+        //Дан список слов, нужно найти самое длинное слово из этого списка, а из всех самых длинных — лексикографически первое слово.
+
+        static void Task5()
+        {
+            Console.WriteLine(GetLongest(new[] { "azaz", "as", "sdsd" }));
+            Console.WriteLine(GetLongest(new[] { "zzzz", "as", "sdsd" }));
+            Console.WriteLine(GetLongest(new[] { "as", "12345", "as", "sds" }));
+        }
+
+        static string GetLongest(IEnumerable<string> words)
+        {
+            return words
+                .Where(s => !Int32.TryParse(s, out _))
+                .Min(s => (-s.Length, s))
+                .s;
         }
 
         #endregion
