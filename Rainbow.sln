@@ -3,11 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32526.322
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rainbow", "Rainbow\Rainbow.csproj", "{D43E00EA-D979-4BA4-B6D2-C49F4826D98E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rainbow", "Rainbow\Rainbow.csproj", "{D43E00EA-D979-4BA4-B6D2-C49F4826D98E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calc", "Calc\Calc.csproj", "{2F1876BD-1AE5-4441-AAD8-31C46D9791AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calc", "Calc\Calc.csproj", "{2F1876BD-1AE5-4441-AAD8-31C46D9791AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tictactoe", "Tictactoe\Tictactoe.csproj", "{275ADE0D-E7E5-4E80-95FC-9DD6EA2D0EFF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tictactoe", "Tictactoe\Tictactoe.csproj", "{275ADE0D-E7E5-4E80-95FC-9DD6EA2D0EFF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudentApp", "StudentApp\StudentApp.csproj", "{7584D33C-88CF-446D-9A9B-D7D9C60F9C3A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PersonLibrary", "PersonLibrary\PersonLibrary.csproj", "{FAA21D35-CF27-48F2-8EFF-6AB983B223D1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LINQ", "LINQ\LINQ.csproj", "{335C471F-7C44-4843-9E7C-650B8E6E1A3E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +33,18 @@ Global
 		{275ADE0D-E7E5-4E80-95FC-9DD6EA2D0EFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{275ADE0D-E7E5-4E80-95FC-9DD6EA2D0EFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{275ADE0D-E7E5-4E80-95FC-9DD6EA2D0EFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7584D33C-88CF-446D-9A9B-D7D9C60F9C3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7584D33C-88CF-446D-9A9B-D7D9C60F9C3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7584D33C-88CF-446D-9A9B-D7D9C60F9C3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7584D33C-88CF-446D-9A9B-D7D9C60F9C3A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FAA21D35-CF27-48F2-8EFF-6AB983B223D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAA21D35-CF27-48F2-8EFF-6AB983B223D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAA21D35-CF27-48F2-8EFF-6AB983B223D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAA21D35-CF27-48F2-8EFF-6AB983B223D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{335C471F-7C44-4843-9E7C-650B8E6E1A3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{335C471F-7C44-4843-9E7C-650B8E6E1A3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{335C471F-7C44-4843-9E7C-650B8E6E1A3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{335C471F-7C44-4843-9E7C-650B8E6E1A3E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
